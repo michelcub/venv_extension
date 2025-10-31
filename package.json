@@ -1,0 +1,222 @@
+{
+  "name": "python-venv-manager",
+  "displayName": "Python Venv Manager",
+  "publisher": "michel",
+  "version": "0.0.2",
+  "icon": "logo.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michelcub/venv_extension.git"
+  },
+  "homepage": "https://github.com/michelcub/venv_extension#readme",
+  "bugs": {
+    "url": "https://github.com/michelcub/venv_extension/issues"
+  },
+  "engines": {
+    "vscode": "^1.105.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "venv",
+          "title": "Venv",
+          "icon": "venv-activity.svg"
+        }
+      ]
+    },
+    "views": {
+      "venv": [
+        {
+          "id": "venvExplorer",
+          "name": "Venv Explorer"
+        },
+        {
+          "id": "venvPackages",
+          "name": "Paquetes (entorno activo)"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "venv.create",
+          "when": "view == venvExplorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "venv.list",
+          "when": "view == venvExplorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "venv.filter",
+          "when": "view == venvExplorer",
+          "group": "navigation@3"
+        },
+        {
+          "command": "venv.clearFilter",
+          "when": "view == venvExplorer",
+          "group": "navigation@4"
+        },
+        {
+          "command": "venv.packages.add",
+          "when": "view == venvPackages",
+          "group": "navigation@1"
+        },
+        {
+          "command": "venv.packages.refresh",
+          "when": "view == venvPackages",
+          "group": "navigation@2"
+        },
+        {
+          "command": "venv.packages.updateAll",
+          "when": "view == venvPackages",
+          "group": "navigation@3"
+        },
+        {
+          "command": "venv.importReqs",
+          "when": "view == venvPackages",
+          "group": "navigation@4"
+        },
+        {
+          "command": "venv.exportReqs",
+          "when": "view == venvPackages",
+          "group": "navigation@5"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "venv.activate",
+          "when": "view == venvExplorer && viewItem == venvItemInactive",
+          "group": "inline@1"
+        },
+        {
+          "command": "venv.deactivate",
+          "when": "view == venvExplorer && viewItem == venvItemActive",
+          "group": "inline@2"
+        },
+        {
+          "command": "venv.delete",
+          "when": "view == venvExplorer && (viewItem == venvItemActive || viewItem == venvItemInactive)",
+          "group": "inline@3"
+        },
+        {
+          "command": "venv.packages.update",
+          "when": "view == venvPackages && viewItem == packageItemOutdated",
+          "group": "inline@1"
+        },
+        {
+          "command": "venv.packages.uninstall",
+          "when": "view == venvPackages && (viewItem == packageItem || viewItem == packageItemOutdated)",
+          "group": "inline@2"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "venv.create",
+        "title": "Venv: Crear entorno",
+        "icon": "$(add)"
+      },
+      {
+        "command": "venv.list",
+        "title": "Venv: Refrescar lista",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "venv.activate",
+        "title": "Venv: Activar entorno",
+        "icon": "$(play)"
+      },
+      {
+        "command": "venv.deactivate",
+        "title": "Venv: Desactivar entorno",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "venv.packages",
+        "title": "Venv: Ver paquetes",
+        "icon": "$(list-unordered)"
+      },
+      {
+        "command": "venv.install",
+        "title": "Venv: Instalar paquete",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "venv.importReqs",
+        "title": "Venv: Importar desde requirements.txt",
+        "icon": "$(arrow-down)"
+      },
+      {
+        "command": "venv.exportReqs",
+        "title": "Venv: Exportar a requirements.txt",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "venv.delete",
+        "title": "Venv: Eliminar entorno",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "venv.filter",
+        "title": "Venv: Filtrar",
+        "icon": "$(check)"
+      },
+      {
+        "command": "venv.clearFilter",
+        "title": "Venv: Limpiar filtro",
+        "icon": "$(x)"
+      },
+      {
+        "command": "venv.packages.refresh",
+        "title": "Venv: Refrescar paquetes",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "venv.packages.search",
+        "title": "Venv: Buscar paquete",
+        "icon": "$(search)"
+      },
+      {
+        "command": "venv.packages.add",
+        "title": "Venv: Agregar paquete",
+        "icon": "$(add)"
+      },
+      {
+        "command": "venv.packages.update",
+        "title": "Venv: Actualizar paquete",
+        "icon": "$(arrow-circle-up)"
+      },
+      {
+        "command": "venv.packages.uninstall",
+        "title": "Venv: Desinstalar paquete",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "venv.packages.updateAll",
+        "title": "Venv: Actualizar todos",
+        "icon": "$(cloud-download)"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -w -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.24",
+    "@types/vscode": "^1.105.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3"
+  }
+}
